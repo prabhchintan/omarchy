@@ -18,13 +18,13 @@ const desynced = [
   [0x01000010, "7", "Home"],
   [0x01000013, "8", "Up"],
   [0x01000016, "9", "PageUp"],
-  [0x01000007, ".", "Delete"]
 ]
 for (const [key, digit, name] of desynced) {
   assertEqual(lock.keypadDigit(key), digit, `keypad ${digit} arrives as ${name} when NumLock is desynced`)
 }
 
 assertEqual(lock.keypadDigit(0x34), "", "a digit that already carries text is not remapped")
+assertEqual(lock.keypadDigit(0x01000007), "", "the keypad decimal (Delete) is left to the field: dot and comma layouts differ")
 assertEqual(lock.keypadDigit(0x01000004), "", "Return is not a keypad digit")
 assertEqual(lock.keypadDigit(0x01000000), "", "Escape is not a keypad digit")
 JS

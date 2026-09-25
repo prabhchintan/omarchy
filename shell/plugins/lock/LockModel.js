@@ -1,5 +1,8 @@
 // Qt never reads the compositor's NumLock state at startup (QTBUG-32687), so
 // keypad digits reach the password field as cursor keys carrying no text.
+// The decimal key is left alone: it arrives as Delete on every layout but
+// types "." on some and "," on others (KP_Separator), which the event alone
+// cannot tell apart.
 // Values are Qt::Key_* from qnamespace.h; QML enums are not visible here.
 function keypadDigit(key) {
   switch (key) {
@@ -13,7 +16,6 @@ function keypadDigit(key) {
     case 0x01000010: return "7" // Key_Home
     case 0x01000013: return "8" // Key_Up
     case 0x01000016: return "9" // Key_PageUp
-    case 0x01000007: return "." // Key_Delete
   }
   return ""
 }
