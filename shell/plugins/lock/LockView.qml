@@ -60,6 +60,8 @@ Item {
     if (passwordInput.readOnly || !(event.modifiers & Qt.KeypadModifier)) return false
     var digit = LockModel.keypadDigit(event.key)
     if (digit === "") return false
+    // insert() keeps a selection where typing replaces it.
+    if (passwordInput.selectionStart !== passwordInput.selectionEnd) passwordInput.remove(passwordInput.selectionStart, passwordInput.selectionEnd)
     passwordInput.insert(passwordInput.cursorPosition, digit)
     return true
   }
